@@ -1,4 +1,9 @@
 fastapi
-uvicorn[standard]
+uvicorn
 moviepy
 pydantic
+python-dotenv
+requests
+pysrt
+pycountry
+mutagen
