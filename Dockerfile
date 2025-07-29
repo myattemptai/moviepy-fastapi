@@ -3,6 +3,9 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
+# install curl for healthcheck
+RUN apt update && apt install -y curl
+
 # Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
@@ -17,7 +20,7 @@ RUN mkdir /app/code
 EXPOSE 8000
 
 # Healthcheck
-HEALTHCHECK CMD curl --fail http://localhost:8000/docs || exit 1
+HEALTHCHECK --start-period=15s CMD curl --fail http://localhost:8000/health || exit 1
 
 # Start the FastAPI server
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
