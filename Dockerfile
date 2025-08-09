@@ -4,7 +4,12 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # install curl for healthcheck
-RUN apt update && apt install -y curl
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      ffmpeg \
+      fonts-dejavu-core \
+      curl \
+ && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
 COPY requirements.txt .
