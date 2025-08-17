@@ -39,3 +39,7 @@ async def run_script(req: RunRequest):
                 "stderr": e.stderr
             }
         )
+        
+@app.get("/health")
+def health():
+    return {"status": "ok"}
